@@ -21,6 +21,13 @@ def index(request):
 
     return render(request, 'index.html', {'form': form})
 
+    
+
+@login_required(login_url='/accounts/login/')
+def profile(request, username):
+    return render(request, 'profile.html')
+
+
 
 class ProfileList(APIView):
     def get(self, request, format=None):
