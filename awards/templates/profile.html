@@ -5,4 +5,12 @@
 {% block content %}
     <h5 class="text-center">{{user.username}}</h5>
     <p class="text-center"> {{user.email}}</p>
+    <div class="container">
+
+        {% for project in projects %}
+            <h4>{{project.title|title}}</h4>
+        {% endfor %}
+    
+    </div>
+    
 {% endblock %} 
