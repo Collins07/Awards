@@ -16,6 +16,24 @@
         <p>{{ project.description }}</p>
         <a href="{{ project.url }}" class="btn btn-success">Visit Site</a>
     </div>
+
+    <div>
+        <h2>Ratings</h2>
+
+    </div>
+    <div>
+
+        {% if user.is_authenticated %}
+        <form action="" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {% bootstrap_form form %}
+            <button class="btn btn-sm btn-info">Rate</button>
+        </form>
+        {% endif %}
+
+    </div>
+
+
 </div>
 
 
