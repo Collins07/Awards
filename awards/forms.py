@@ -1,4 +1,4 @@
-from .models import Profile, Projects
+from .models import Profile, Projects, Rating
 from django import forms
 from django.contrib.auth.models import User
 
@@ -8,10 +8,14 @@ class ProjectsForm(forms.ModelForm):
         model = Projects
         fields = ['title', 'image','description', 'url'] 
 
+
+
 class ProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
-        fields = ['profile_picture', 'bio']
+        fields = ['name', 'profile_picture', 'bio']
+
+
 
 
 class UserForm(forms.ModelForm):
@@ -19,4 +23,11 @@ class UserForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ('username', 'email')         
+        fields = ('username', 'email')        
+
+
+
+class RatingsForm(forms.ModelForm):
+    class Meta:
+        model = Rating
+        fields = ['design', 'usability', 'content'] 
