@@ -20,3 +20,19 @@ def index(request):
         form = ProjectsForm()
 
     return render(request, 'index.html', {'form': form})
+
+
+class ProfileList(APIView):
+    def get(self, request, format=None):
+        all_profiles = Profile.objects.all()
+        serializers = ProfileSerializer(all_profiles, many=True)
+
+        return Response(serializers.data)
+
+
+class ProjectsList(APIView):
+    def get(self, request, format=None):
+        all_projects = Projects.objects.all()
+        serializers = ProjectsSerializer(all_projects, many=True)
+
+        return Response(serializers.data)    
