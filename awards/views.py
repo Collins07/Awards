@@ -1,10 +1,11 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required
-from .forms import ProjectsForm
+from .forms import ProjectsForm,UserForm,ProfileForm
 from .models import Projects,Profile
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from .serializer import ProfileSerializer,ProjectsSerializer
+from django.contrib.auth.models import User
 
 
 # Create your views here.
@@ -45,6 +46,23 @@ def search_project(request):
     else:
         message = "You haven't searched for any image category"
     return render(request, 'results.html', {'message': message})
+
+
+@login_required(login_url='/accounts/login/')
+def edit_profile(request, username):
+    user = User.objects.get(username=username)
+    if request.method == 'POST':
+        user_form = UserForm(request.POST, instance=request.user)
+        prof_form = ProfileForm(request.POST, request.FILES, instance=request.user.profile)
+        if user_form.is_valid() and prof_form.is_valid():
+            user_form.save()
+            prof_form.save()
+            return redirect('profile', user.username)
+    else:
+        user_form = UserForm(instance=request.user)
+        prof_form = ProfileForm(instance=request.user.profile)
+
+    return render(request, 'update_profile.html', {'user_form': user_form, 'prof_form': prof_form})    
 
 
 

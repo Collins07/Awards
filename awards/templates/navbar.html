@@ -34,6 +34,9 @@
                 <a href="{% url 'profile' user.username %}">Profile</a>
               </li>
               <li>
+                <a href="{% url 'update' user.username  %}"> Edit profile</a>
+              </li>
+              <li>
                 <a href="/logout">Logout</a>
               </li>
             </ul>
