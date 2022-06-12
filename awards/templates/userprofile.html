@@ -1,10 +1,37 @@
 {% extends 'base.html' %}
 {% load static %}
 {% load bootstrap3 %}
+{% load cloudinary %}
 
 {% block content %}
 <div class="container">
-    <p class="text-center">{{user_prof.username}}</p>
-    <p class="text-center"> {{user_prof.email}}</p>
+    <div class="row">
+        <div class="col-md-5"></div>
+        <div class="col-md-2">
+            <span>{% cloudinary user_prof.profile.profile_picture format="jpg" width=180 height=180 crop="fill"  %}</span>
+            <h4>{{user_prof.username}}</h4>
+            <p> {{user_prof.email}}</p>
+            <p class="text-secondary">{{ user.profile.bio }}</p>
+        </div>
+        <div class="col-md-5"></div>
+    </div>
 </div>
+
+<div class="container">
+
+    <div class="row">
+
+
+        {% for project in projects %}
+            <div class="col-sm-12 col-lg-6">
+                <h3 class="text-center"><a href="{% url 'project' project.id %}">{{project.title|title}}</a></h3>
+                {% cloudinary project.image format="jpg" width=500 height=400 crop="fill"  %}
+
+
+                <p><a href="{% url 'project' project.id %}" class="btn btn-danger">View and Rate the Project</a></p>
+            </div>
+
+        {% endfor %}
+
+    </div>
 {% endblock %} 
