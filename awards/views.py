@@ -82,12 +82,12 @@ def user_profile(request, username):
 
 
 
-# @login_required(login_url='/accounts/login/')
-# def single_project(request, projects):
-#     projects = Projects.objects.get(title=projects)
+@login_required(login_url='/accounts/login/')
+def project(request, id):
+    project = get_object_or_404(Projects, pk=id)
 
 
-#     return render(request, 'single_project.html', {'project':projects})
+    return render(request, 'single_project.html', {'project':project})
 
 
 
