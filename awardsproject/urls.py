@@ -21,8 +21,7 @@ from django.contrib.auth import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('',include('awards.urls')),
-     path('logout', views.LogoutView.as_view()),
+    path('logout', views.LogoutView.as_view()),
     path('accounts/register/',
         RegistrationView.as_view(success_url='/'),
         name='django_registration_register'),

@@ -10,11 +10,12 @@
         <div class="col-md-5"></div>
         <div class="col-md-2">
             <span>{% cloudinary user.profile.profile_picture format="jpg" width=180 height=180 crop="fill"  %}</span>
-            <h4>{{user.username}}</h4>
+            <h4 class="name">{{user.username}}</h4>
             <p> {{user.email}}</p>
             <p class="text-secondary">{{ user.profile.bio }}</p>
         </div>
         <div class="col-md-5"></div>
+</div> <hr>
 </div>
     
 
@@ -25,7 +26,7 @@
 
             {% for project in projects %}
                 <div class="col-sm-12 col-lg-6">
-                    <h3 class="text-center"><a href="{% url 'project' project.id %}">{{project.title|title}}</a></h3>
+                    <h3 class="text-center title"><a href="{% url 'project' project.id %}">{{project.title|title}}</a></h3>
                     {% cloudinary project.image format="jpg" width=500 height=400 crop="fill"  %}
     
     

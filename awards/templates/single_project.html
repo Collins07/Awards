@@ -7,28 +7,30 @@
 
 
 <div class="container">
-    <h4>A Project from <a href="{% url 'userprofile' project.user.username %}">{{project.user.username}}</a> {{project.date}}</h4>
+    <p class="lead">A Project from <a href="{% url 'userprofile' project.user.username %}">{{project.user.username}}</a> posted on {{project.date}}</p>
     <div>
         {% cloudinary project.image format="jpg" width=1200 height=600 crop="fill"  %}
     </div>
     <div>
-        <h3>{{project.title|title}}</h3>
-        <p>{{ project.description }}</p>
+        <h3 class="title2">{{project.title|title}}</h3>
+        <p class="para">{{ project.description }}</p>
         <a href="{{ project.url }}" class="btn btn-success">Visit Site</a>
     </div>
 
     <div>
-        <h2>Ratings</h2>
+        <h2 class="title2">Ratings</h2>
 
     </div>
     <div>
 
         {% if user.is_authenticated %}
-        <form action="" method="post" enctype="multipart/form-data">
-            {% csrf_token %}
-            {% bootstrap_form form %}
-            <button class="btn btn-sm btn-info">Rate</button>
-        </form>
+        <div class="form">
+            <form action="" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {% bootstrap_form form %}
+                <button class="btn btn-sm btn-info">Rate</button>
+            </form>
+        </div>
         {% endif %}
 
     </div>

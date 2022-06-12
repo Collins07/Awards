@@ -9,7 +9,7 @@
         <div class="col-md-5"></div>
         <div class="col-md-2">
             <span>{% cloudinary user_prof.profile.profile_picture format="jpg" width=180 height=180 crop="fill"  %}</span>
-            <h4>{{user_prof.username}}</h4>
+            <h4  class="name">{{user_prof.username}}</h4>
             <p> {{user_prof.email}}</p>
             <p class="text-secondary">{{ user.profile.bio }}</p>
         </div>

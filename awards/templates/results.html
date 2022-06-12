@@ -7,22 +7,22 @@
 {% block content %}
 <div class="container">
     {% if results %}
-        <h5>Found {{results.count}} projects</h5>
+    <p class="lead">Found {{results.count}} projects</p>
 
         {% for project in results %}
 
         <div class="col-sm-12 col-lg-6">
-            <h3 class="text-center"><a href="{% url 'project' project.id %}">{{project.title|title}}</a></h3>
+            <h3 class="text-center title"><a href="{% url 'project' project.id %}">{{project.title|title}}</a></h3>
             {% cloudinary project.image format="jpg" width=500 height=400 crop="fill"  %}
 
-            <p>Posted by: <a href="{% url 'userprofile' project.user.username %}">{{project.user.username|title}}</a> on {{project.date}}</p>
+            <p  class="lead">Posted by: <a href="{% url 'userprofile' project.user.username %}">{{project.user.username|title}}</a> on {{project.date}}</p>
             <p><a href="{% url 'project' project.id %}" class="btn btn-danger">View and Rate the Project</a></p>
         </div>
             
 
         {% endfor %}
         {% else %}
-            <h4>Found 0 projects with the name you searched </h4>
+        <p class="lead">Found 0 projects with the name you searched </p>
     {% endif %}
 </div>
 
