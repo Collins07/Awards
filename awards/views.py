@@ -1,11 +1,12 @@
 from django.shortcuts import render,redirect,get_object_or_404
 from django.contrib.auth.decorators import login_required
-from .forms import ProjectsForm,UserForm,ProfileForm
-from .models import Projects,Profile
+from .forms import ProjectsForm,UserForm,ProfileForm,RatingsForm
+from .models import Projects,Profile,Rating
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from .serializer import ProfileSerializer,ProjectsSerializer
 from django.contrib.auth.models import User
+from django.http import HttpResponseRedirect
 
 
 # Create your views here.
@@ -85,9 +86,18 @@ def user_profile(request, username):
 @login_required(login_url='/accounts/login/')
 def project(request, id):
     project = get_object_or_404(Projects, pk=id)
+    current_user = request.user
+    # if request.method == 'POST':
+    #     form = RatingsForm(request.POST)
+    #     if form.is_valid():
+    #         rate = form.save(commit=False)
+    #         rate.user = current_user
+    #         rate.save()
+
+    form = RatingsForm()
 
 
-    return render(request, 'single_project.html', {'project':project})
+    return render(request, 'single_project.html', {'project': project, 'form': form})
 
 
 
