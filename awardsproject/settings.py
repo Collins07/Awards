@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'awards',
     'bootstrap3',
+    'cloudinary',
 ]
 
 MIDDLEWARE = [
@@ -139,7 +140,7 @@ LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/accounts/login/'
 
 cloudinary.config( 
-  cloud_name = config("CLOUDINARY_NAME"), 
-  api_key = config("CLOUDINARY_KEY"), 
-  api_secret = config("CLOUDINARY_SECRET") 
+  cloud_name = 'nyakoe', 
+  api_key = '556266172747944', 
+  api_secret = 'VJqp-YILVwa7We_QQUohpMXD7Sc' 
 ) 
