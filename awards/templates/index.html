@@ -43,7 +43,10 @@
 <h2>All Projects</h2>
 {% if projects %}
     {% for project in projects %}
+    
         <h4>{{project.title|title}}</h4>
+        <p>By: <a href="{% url 'userprofile' project.user.username %}">{{project.user.username|title}}</a> </p>
+
     {% endfor %}
 {% endif %}
 

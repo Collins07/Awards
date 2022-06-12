@@ -10,5 +10,6 @@ urlpatterns = [
     #path('project/<projects>', views.single_project, name='project'),
     path('search/', views.search_project, name='search'),
     path('profile/<username>/update', views.edit_profile, name='update'),
+    path('<username>/profile', views.user_profile, name='userprofile'),
 
 ] 

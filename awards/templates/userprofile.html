@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load bootstrap3 %}
+
+{% block content %}
+<div class="container">
+    <p class="text-center">{{user_prof.username}}</p>
+    <p class="text-center"> {{user_prof.email}}</p>
+</div>
+{% endblock %} 
