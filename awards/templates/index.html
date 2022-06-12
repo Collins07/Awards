@@ -4,13 +4,15 @@
 
 {% block content %}
 
+<div class="container">
 <h1>Awards app</h1>
 
-<button class="btn btn-info" id="site" data-toggle="modal" data-target=".bd-example-modal-xl">
-    Post a Project
+<button class="btn btn-info btn-sm" id="site" data-toggle="modal" data-target=".bd-example-modal-xl">
+    Post your Project
 </button>
 
-<div class="modal fade bd-example-modal-xl" id="ModalCenter" tabindex="-1" role="dialog"
+{% if user.is_authenticated %}
+        <div class="modal fade bd-example-modal-xl" id="ModalCenter" tabindex="-1" role="dialog"
              aria-labelledby="exampleModalCenterTitle"
              aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
@@ -24,8 +26,8 @@
                     <div class="modal-body">
                         <form action="" method="post" enctype="multipart/form-data">
                             {% csrf_token %}
-                           {% bootstrap_form form %}
-                            <input type="submit" class="btn btn-sm btn-info" value="Save"/>
+                            {% bootstrap_form form%}
+                            <input type="submit" class="btn btn-sm btn-info" value="Post">
                             <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Close
                             </button>
                         </form>
@@ -34,5 +36,17 @@
             </div>
         </div>
 
+{% endif %}
+
+
+
+<h2>All Projects</h2>
+{% if projects %}
+    {% for project in projects %}
+        <h4>{{project.title|title}}</h4>
+    {% endfor %}
+{% endif %}
+
+</div>
 
 {% endblock %} 

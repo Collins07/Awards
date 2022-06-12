@@ -10,22 +10,33 @@ from .serializer import ProfileSerializer,ProjectsSerializer
 # Create your views here.
 @login_required (login_url='/accounts/login/')
 def index(request):
+    current_user = request.user
     if request.method == "POST":
         form = ProjectsForm(request.POST, request.FILES)
         if form.is_valid():
             project = form.save(commit=False)
-            project.user = request.user
+            project.user = current_user
             project.save()
     else:
         form = ProjectsForm()
+        projects = Projects.objects.all()
 
-    return render(request, 'index.html', {'form': form})
+    return render(request, 'index.html', {'form':form, 'projects':projects})
 
-    
+
 
 @login_required(login_url='/accounts/login/')
 def profile(request, username):
     return render(request, 'profile.html')
+
+
+# @login_required(login_url='/accounts/login/')
+# def single_project(request, projects):
+#     projects = Projects.objects.get(title=projects)
+
+
+#     return render(request, 'single_project.html', {'project':projects})
+
 
 
 
