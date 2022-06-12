@@ -1,0 +1,56 @@
+{%extends "django_registration/base.html"%}
+{% load bootstrap3 %}
+{% block content %}
+<div class="container">
+  <div class="row">
+    <!-- Empty div -->
+    <div class="col-md-4"></div>
+    <div class="col-md-4">
+      {% if form.errors %}
+        <p> Password or Username is incorrect </p>
+      {% endif %}
+      <div class="container" style="margin-left:20%; margin-bottom:20px">
+        </a>
+      </h1>
+          <div class="logoname" style="display:inline">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Instagram_logo.svg/2000px-Instagram_logo.svg.png" style="width:150px">
+          </div>
+
+      </div>
+      <div class="panel panel-default">
+
+        <div class="panel-heading">
+          <h3 class="text-center">Sign In</h3>
+        </div>
+        <div class="panel-body">
+
+          <form  action="/accounts/login/" method="post">
+            {% csrf_token %}
+            {% bootstrap_form form%}
+
+            <div class="form-group">
+              <input type="submit" class="btn btn-primary btn-sm" value="Login">
+            </div>
+
+            <input type="hidden" name="next" value="{{next}}">
+
+          </form>
+
+          <div>
+            <h3>Don't have an Account?</h3>
+          </div>
+          <a href="/accounts/register">
+            <input type="click" name="" value="Register" class="btn btn-primary btn-block">
+          </a>
+
+        </div>
+
+      </div>
+
+    </div>
+    <!-- empty div -->
+    <div class="col-md-4"></div>
+  </div>
+</div>
+
+{% endblock %} 
