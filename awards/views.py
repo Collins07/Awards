@@ -19,6 +19,7 @@ def index(request):
             project = form.save(commit=False)
             project.user = current_user
             project.save()
+            form = ProjectsForm()
     else:
         form = ProjectsForm()
         projects = Projects.objects.all()
