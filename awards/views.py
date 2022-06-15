@@ -87,6 +87,7 @@ def user_profile(request, username):
 @login_required(login_url='/accounts/login/')
 def project(request, id):
     project = get_object_or_404(Projects, pk=id)
+    ratings = Rating.objects.filter(user=request.user, projects=project).first()
     current_user = request.user
     # if request.method == 'POST':
     #     form = RatingsForm(request.POST)
@@ -95,10 +96,34 @@ def project(request, id):
     #         rate.user = current_user
     #         rate.save()
 
-    form = RatingsForm()
+    
+    rating_status = None
+    if ratings is None:
+        rating_status = False
+    else:
+        rating_status = True
+    if request.method == 'POST':
+        form = RatingsForm(request.POST)
+        if form.is_valid():
+            rate = form.save(commit=False)
+            rate.user = current_user
+            rate.projects = project
+            rate.save()
+            form = RatingsForm()      
+    else:  
+        form = RatingsForm()
 
 
-    return render(request, 'single_project.html', {'project': project, 'form': form})
+    averages = project.averages
+    usability = averages["usability__avg"] or 0
+    design = averages["design__avg"] or 0
+    content = averages["content__avg"] or 0
+    score = (usability + design + content) /3
+
+    return render(request, 'single_project.html', {'project': project, 'usability': usability, 'content': content, 'design': design, 'score':score, 'form':form})
+
+
+
 
 
 
