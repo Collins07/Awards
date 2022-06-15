@@ -1,5 +1,5 @@
 h1{
-    color: rgb(248, 207, 74);
+    color: rgb(46, 43, 68);
     font-weight: bold;
 }
 img{
@@ -10,6 +10,10 @@ img{
     color:white;
     padding:3%;
     border:none;
+}
+#banner{
+    font-size: 30px;
+    font-weight: bold;
 }
 
 .title{
@@ -34,11 +38,18 @@ p{
     padding: 10px;
 } 
 body{
-    background: #c31432;  /* fallback for old browsers */
-background: -webkit-linear-gradient(to right, #240b36, #c31432);  /* Chrome 10-25, Safari 5.1-6 */
-background: linear-gradient(to right, #240b36, #c31432); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: #D3CCE3;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #E9E4F0, #D3CCE3);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #E9E4F0, #D3CCE3); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    
 
 }
 #accounts{
     margin-left: 70%;
+}
+nav{
+    background: #536976;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to right, #292E49, #536976);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to right, #292E49, #536976); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
 }

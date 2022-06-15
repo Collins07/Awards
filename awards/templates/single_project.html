@@ -7,37 +7,41 @@
 
 
 <div class="container">
+    <div class="row" >
     <p class="lead">A Project from <a href="{% url 'userprofile' project.user.username %}">{{project.user.username}}</a> posted on {{project.date}}</p>
-    <div>
-        {% cloudinary project.image format="jpg" width=1200 height=600 crop="fill"  %}
+    <div class="col-md-6">
+        {% cloudinary project.image format="jpg" width=500 height=600 crop="fill"  %}
     </div>
-    <div>
+    <div class="col-md-5">
         <h3 class="title2">{{project.title|title}}</h3>
         <p class="para">{{ project.description }}</p>
         <a href="{{ project.url }}" class="btn btn-success">Visit Site</a>
-    </div>
 
-    <div>
-        <h2 class="title2">Ratings</h2>
-
-    </div>
-    <div>
-
-        {% if user.is_authenticated %}
-        <div class="form">
-            <form action="" method="post" enctype="multipart/form-data">
-                {% csrf_token %}
-                {% bootstrap_form form %}
-                <button class="btn btn-sm btn-info">Rate</button>
-            </form>
+        <div>
+            <h2 class="title2">Ratings</h2>
+    
         </div>
-        {% endif %}
-            <div> Average design: {{design}} </div>
-            <div> Average usability: {{usability}} </div>
-            <div> Average content: {{content}} </div>
-            <div>score: {{score}}</div>
-
+        <div>
+    
+            {% if user.is_authenticated %}
+            <div class="form">
+                <form action="" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {% bootstrap_form form %}
+                    <button class="btn btn-sm btn-info">Rate</button>
+                </form>
+            </div>
+            {% endif %}
+                <div> Average design: {{design}} </div>
+                <div> Average usability: {{usability}} </div>
+                <div> Average content: {{content}} </div>
+                <div>score: {{score}}</div>
+    
+        </div>
+    </div >
     </div>
+
+    
 
 
 </div>
