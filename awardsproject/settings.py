@@ -15,7 +15,9 @@ import os
 import cloudinary
 import cloudinary.uploader
 import cloudinary.api
-from decouple import config
+import django_heroku
+import dj_database_url
+from decouple import config,Csv
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -25,13 +27,6 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-px-$kcr@qr@6k$djvir8af3r7nd9!5fz023+s9w#v1cw#o$3ot'
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -84,14 +79,34 @@ WSGI_APPLICATION = 'awardsproject.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'jones',
-        'USER': 'moringa',
-        'PASSWORD': 'Access',
-    }
-}
+MODE=config("MODE", default="dev")
+SECRET_KEY = config('SECRET_KEY')
+DEBUG = config('DEBUG', default=False, cast=bool)
+# development
+if config('MODE')=="dev":
+   DATABASES = {
+       'default': {
+           'ENGINE': 'django.db.backends.postgresql_psycopg2',
+           'NAME': config('DB_NAME'),
+           'USER': config('DB_USER'),
+           'PASSWORD': config('DB_PASSWORD'),
+           'HOST': config('DB_HOST'),
+           'PORT': '',
+       }
+       
+   }
+# production
+else:
+   DATABASES = {
+       'default': dj_database_url.config(
+           default=config('DATABASE_URL')
+       )
+   }
+
+db_from_env = dj_database_url.config(conn_max_age=500)
+DATABASES['default'].update(db_from_env)
+
+ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv())
 
 
 # Password validation
@@ -155,3 +170,6 @@ cloudinary.config(
   api_key = '556266172747944', 
   api_secret = 'VJqp-YILVwa7We_QQUohpMXD7Sc' 
 ) 
+
+# Configure Django App for Heroku.
+django_heroku.settings(locals())
