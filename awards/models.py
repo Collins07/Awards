@@ -3,6 +3,7 @@ from cloudinary.models import CloudinaryField
 from django.contrib.auth.models import User
 from django.dispatch import receiver
 from django.db.models.signals import post_save
+from django.core.validators import MinValueValidator, MaxValueValidator
 
 # Create your models here.
 
@@ -39,6 +40,10 @@ class Projects(models.Model):
     def delete_project(self):
         self.delete()
 
+    @property
+    def averages(self):
+        return Rating.objects.filter(projects=self).aggregate(models.Avg('usability'), models.Avg('design'), models.Avg('content'))    
+
     @classmethod
     def search_project(cls, title):
         return cls.objects.filter(title__icontains=title).all()
@@ -56,16 +61,12 @@ class Projects(models.Model):
 
 
 class Rating(models.Model):
-    rating = ((1, '1'),(2, '2'),(3, '3'),(4, '4'),(5, '5'),(6, '6'),(7, '7'),(8, '8'),(9, '9'),(10, '10'),)
-    design = models.IntegerField(choices=rating, blank=True)
-    usability = models.IntegerField(choices=rating, blank=True)
-    content = models.IntegerField(choices=rating, blank=True)
-    design_average = models.FloatField(default=0, blank=True)
-    usability_average = models.FloatField(default=0, blank=True)
-    content_average = models.FloatField(default=0, blank=True)
-    score = models.FloatField(default=0, blank=True)
+   
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, related_name='rater')
     projects = models.ForeignKey(Projects, on_delete=models.CASCADE, related_name='ratings', null=True)
+    design = models.IntegerField(default=0,validators=[MinValueValidator(1), MaxValueValidator(10)])
+    usability = models.IntegerField(default=0,validators=[MinValueValidator(1), MaxValueValidator(10)], null=True)
+    content = models.IntegerField(default=0,validators=[MinValueValidator(1), MaxValueValidator(10)])
 
     def save_rating(self):
         self.save()
